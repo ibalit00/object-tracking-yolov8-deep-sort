@@ -1,7 +1,7 @@
-from deep_sort.deep_sort.tracker import Tracker as DeepSortTracker
-from deep_sort.tools import generate_detections as gdet
-from deep_sort.deep_sort import nn_matching
-from deep_sort.deep_sort.detection import Detection
+from object_tracking_yolov8_deep_sort.deep_sort.deep_sort.tracker import Tracker as DeepSortTracker
+from object_tracking_yolov8_deep_sort.deep_sort.tools import generate_detections as gdet
+from object_tracking_yolov8_deep_sort.deep_sort.deep_sort import nn_matching
+from object_tracking_yolov8_deep_sort.deep_sort.deep_sort.detection import Detection
 import numpy as np
 
 
@@ -14,7 +14,8 @@ class Tracker:
         max_cosine_distance = 0.4
         nn_budget = None
 
-        encoder_model_filename = 'model_data/mars-small128.pb'
+        encoder_model_filename = "/root/Parking-1/object_tracking_yolov8_deep_sort/Model_data/mars-small128.pb"
+
 
         metric = nn_matching.NearestNeighborDistanceMetric("cosine", max_cosine_distance, nn_budget)
         self.tracker = DeepSortTracker(metric)
@@ -42,7 +43,7 @@ class Tracker:
         self.tracker.update(dets)
         self.update_tracks()
 
-    def update_tracks(self):
+def update_tracks(self):
         tracks = []
         for track in self.tracker.tracks:
             if not track.is_confirmed() or track.time_since_update > 1:
